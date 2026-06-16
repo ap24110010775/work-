@@ -61,7 +61,7 @@ const AuthPage = ({ mode = 'login' }: { mode?: 'login' | 'register' }) => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name: fullName, email, password, role })
         });
-        const data = await res.json();
+  const data = await (res.headers.get('content-type')?.includes('application/json') ? res.json() : res.text());
         
         if (!res.ok) throw new Error(data.message || 'Registration failed');
         
@@ -75,7 +75,7 @@ const AuthPage = ({ mode = 'login' }: { mode?: 'login' | 'register' }) => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, otpCode, purpose: 'verification' })
         });
-        const data = await res.json();
+        const data = await (res.headers.get('content-type')?.includes('application/json') ? res.json() : res.text());
         
         if (!res.ok) throw new Error(data.message || 'Invalid OTP');
         
@@ -93,7 +93,7 @@ const AuthPage = ({ mode = 'login' }: { mode?: 'login' | 'register' }) => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, otpCode, newPassword: password })
         });
-        const data = await res.json();
+        const data = await (res.headers.get('content-type')?.includes('application/json') ? res.json() : res.text());
         if (!res.ok) throw new Error(data.message || 'Failed to reset password');
 
         setSuccessMsg('Password reset successful! You can now log in.');
@@ -107,7 +107,7 @@ const AuthPage = ({ mode = 'login' }: { mode?: 'login' | 'register' }) => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password })
         });
-        const data = await res.json();
+        const data = await (res.headers.get('content-type')?.includes('application/json') ? res.json() : res.text());
         
         if (!res.ok) {
           throw new Error(data.message || 'Login failed');
@@ -136,7 +136,7 @@ const AuthPage = ({ mode = 'login' }: { mode?: 'login' | 'register' }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email })
       });
-      const data = await res.json();
+      const data = await (res.headers.get('content-type')?.includes('application/json') ? res.json() : res.text());
       if (!res.ok) throw new Error(data.message || 'Failed to initiate password reset');
       
       setSuccessMsg("Reset code sent to your email!");
@@ -261,7 +261,7 @@ const AuthPage = ({ mode = 'login' }: { mode?: 'login' | 'register' }) => {
                           role 
                         })
                       });
-                      const data = await res.json();
+                      const data = await (res.headers.get('content-type')?.includes('application/json') ? res.json() : res.text());
                       if (res.ok) {
                         saveAuthUser(data.user, data.token);
                         goToDashboard();
