@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+.dashboard-input {
+  width: 100%;
+  border: 1px solid #d8dedb;
+  border-radius: 14px;
+  background: #ffffff;
+  padding: 16px 18px;
+  color: #111827;
+  outline: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.dashboard-input::placeholder {
+  color: #6b7280;
+}
+
+.dashboard-input:focus {
+  border-color: #f56618;
+  box-shadow: 0 0 0 3px rgba(245, 102, 24, 0.14);
+}
